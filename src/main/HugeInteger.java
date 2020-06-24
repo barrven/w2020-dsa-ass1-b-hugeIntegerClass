@@ -60,7 +60,7 @@ public class HugeInteger {
     public void traverseTailFirst(){
         Node current = tail;
         while (current != null){
-            System.out.println(current.data);
+            System.out.print(current.data);
             current = current.prev;
         }
     }
@@ -68,8 +68,24 @@ public class HugeInteger {
     public void traverseHeadFirst(){
         Node current = head;
         while (current != null){
-            System.out.println(current.data);
+            System.out.print(current.data);
             current = current.next;
         }
+    }
+
+    public String toString(){
+        StringBuilder s = new StringBuilder();
+        if (!isPositive)
+            s.append("-");
+        Node c = tail;
+        while (c != null){
+            s.append(c.data);
+            c = c.prev;
+        }
+        return s.toString();
+    }
+
+    public HugeInteger addPositive(HugeInteger num2){
+        return null;
     }
 }
