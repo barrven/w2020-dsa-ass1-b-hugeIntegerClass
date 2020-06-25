@@ -32,7 +32,7 @@ public class HugeInteger {
         int i = start;
         while (i < str.length() && str.charAt(i) == '0')
             i++;
-        StringBuffer sb = new StringBuffer(str);
+        StringBuilder sb = new StringBuilder(str);
         // The  StringBuffer replace i number of zeros
         sb.replace(0, i, "");
         return sb.toString();  // return in String
@@ -86,6 +86,43 @@ public class HugeInteger {
     }
 
     public HugeInteger addPositive(HugeInteger num2){
+        /*
+        Returns a new HugeInteger containing the result of adding num2 to the
+        stored number. You MUST assume num2 and the number being added to are
+        BOTH positive.
+         */
+
         return null;
+    }
+
+    public void concatenate(int digit){
+        /*
+        Adds a digit to the end of the number (at the front of the list).
+        Note: if the list is empty leading zeros should not be added.
+         */
+        Node temp = head;
+        head = new Node(digit);
+        head.next = temp;
+        temp.prev = head;
+    }
+
+    public void addLast(int digit){
+        /*
+        Adds a digit to the front of the number (at the end of the list).
+        This can be used in the addPositive method
+         */
+        Node temp = tail;
+        tail = new Node(digit);
+        tail.prev = temp;
+        temp.next = tail;
+    }
+
+    public int compareTo(HugeInteger num2){
+        /*
+        Returns -1 if the number stored is less than num2
+        Returns 0 if the number stored is equal to num2
+        Returns 1 if the number stored is greater than num2
+         */
+        return 0;
     }
 }
