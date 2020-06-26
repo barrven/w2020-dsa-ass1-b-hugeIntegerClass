@@ -121,8 +121,7 @@ public class HugeInteger {
             }
 
             //add the result to the return object
-            System.out.println(sum);
-            total.concatenate(sum);
+            total.addFront(sum);
             shortest = shortest.next;
             longest = longest.next;
         }
@@ -135,12 +134,13 @@ public class HugeInteger {
             else{
                 buffer = 0; //clear buffer if no carrying
             }
-            System.out.println(sum);
-            total.concatenate(sum);
+            total.addFront(sum);
             longest = longest.next;
         }
-        if (buffer > 0)
-            total.concatenate(buffer);
+
+        if (buffer > 0){
+            total.addFront(buffer);
+        }
 
         return total;
     }
@@ -150,41 +150,56 @@ public class HugeInteger {
         Adds a digit to the end of the number (at the front of the list).
         Note: if the list is empty leading zeros should not be added.
          */
+        if (length != 0){
 
-        //list is empty
-        if (head == null && digit != 0){
-            head = new Node(digit);
-            tail = head;
-            return;
         }
-        //cover case where head == tail and need to create tail
-        if (head == tail){
-            head = new Node(digit);
-            head.next = tail;
-            tail.prev = head;
-            return;
-        }
-        Node temp = head;
-        head = new Node(digit);
-        head.next = temp;
-        temp.prev = head;
+
+
+
+
+
+
+
+
+
+
+
+//        //list is empty
+//        if (head == null && digit != 0){
+//            head = new Node(digit);
+//            tail = head;
+//            return;
+//        }
+//        //cover case where head == tail and need to create head
+//        if (head == tail){
+//            head = new Node(digit);
+//            head.next = tail;
+//            tail.prev = head;
+//            return;
+//        }
+//        Node temp = head;
+//        head = new Node(digit);
+//        head.next = temp;
+//        temp.prev = head;
     }
 
-    public void concatenate(int digit){
+    public void addFront(int digit){
         /*
         Adds a digit to the front of the number (at the end of the list).
         This can be used in the addPositive method
          */
-        if (tail == null){
+        if (length == 0){
             tail = new Node(digit);
             head = tail;
+            length = 1;
             return;
         }
         //cover case where head == tail and need to create tail
-        if (head == tail){
+        if (length == 1){
             tail = new Node(digit);
             head.next = tail;
             tail.prev = head;
+            length++;
             return;
         }
         Node temp = tail;
