@@ -67,21 +67,21 @@ public class HugeInteger {
         }
     }
 
-    public void traverseTailFirst(){
-        Node current = tail;
-        while (current != null){
-            System.out.print(current.data);
-            current = current.prev;
-        }
-    }
+//    public void traverseTailFirst(){
+//        Node current = tail;
+//        while (current != null){
+//            System.out.print(current.data);
+//            current = current.prev;
+//        }
+//    }
 
-    public void traverseHeadFirst(){
-        Node current = head;
-        while (current != null){
-            System.out.print(current.data);
-            current = current.next;
-        }
-    }
+//    public void traverseHeadFirst(){
+//        Node current = head;
+//        while (current != null){
+//            System.out.print(current.data);
+//            current = current.next;
+//        }
+//    }
 
     public String toString(){
         if (length == 0)
@@ -117,7 +117,7 @@ public class HugeInteger {
         }
         //traverse through the shortest list starting at head
         int buffer = 0; // buffer is used to hold carry values
-        int sum = 0;
+        int sum;
         HugeInteger total = new HugeInteger();
         while (shortest != null){
             sum = shortest.data + longest.data + buffer;
@@ -160,55 +160,29 @@ public class HugeInteger {
         Adds a digit to the end of the number (at the front of the list).
         Note: if the list is empty leading zeros should not be added.
          */
-        if (digit == 0){
-            if (length > 0){
-                tail = new Node(digit);
-                head.next = tail;
-                tail.prev = head;
-                length++;
-            }
-        }
-        else{
-            if (length == 0){
+        if (length == 0){
+            if (digit != 0){
                 head = new Node(digit);
                 tail = head;
-                length++;
-                System.out.println(this.toString());
-                return;
+                length = 1;
             }
-            if (length == 1){
-                head = new Node(digit);
-                head.next = tail;
-                tail.prev = head;
-                System.out.println(this.toString());
-                return;
-            }
-            Node temp = head;
-            head = new Node(digit);
-            head.next = temp;
-            temp.prev = head;
-            length++;
+            return;
         }
-        System.out.println(this.toString());
+        if (length == 1){
+            head = new Node(digit);
+            head.next = tail;
+            tail.prev = head;
+            length++;
+            return;
+        }
+
+        Node temp = head;
+        head = new Node(digit);
+        head.next = temp;
+        temp.prev = head;
+        length++;
 
 
-//        //list is empty
-//        if (head == null && digit != 0){
-//            head = new Node(digit);
-//            tail = head;
-//            return;
-//        }
-//        //cover case where head == tail and need to create head
-//        if (head == tail){
-//            head = new Node(digit);
-//            head.next = tail;
-//            tail.prev = head;
-//            return;
-//        }
-//        Node temp = head;
-//        head = new Node(digit);
-//        head.next = temp;
-//        temp.prev = head;
     }
 
     public void addFront(int digit){
