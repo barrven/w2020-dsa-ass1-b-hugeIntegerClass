@@ -3,21 +3,38 @@ package main;
 public class Main {
 
     public static void main(String[] args) {
-        HugeInteger num1 = new HugeInteger("223");
-        HugeInteger num2 = new HugeInteger("123");
-//        HugeInteger res = num1.addPositive(num2);
-//        System.out.println(res.toString());
-        System.out.println(num1.compareTo(num2));
 
+        HugeInteger hi = new HugeInteger();
+        System.out.println(hi);
+        // testing sign
+        HugeInteger hi1 = new HugeInteger("34545234");
+        System.out.println(hi1);
+        HugeInteger hi2 = new HugeInteger("-2455434324344");
+        System.out.println(hi2);
 
+        //testing leading zeros
+        HugeInteger hi3 = new HugeInteger("000034545234");
+        System.out.println(hi3);
+        HugeInteger hi4 = new HugeInteger("-00000002455434324344");
+        System.out.println(hi4);
 
-//        HugeInteger test = new HugeInteger();
-//
-//        for (int i = 0; i < 10; i++){
-//            test.addLast(i);
-//        }
-//
-//        System.out.println(test.toString());
+        // testing concatenate with a single digit
+        HugeInteger hi5 = new HugeInteger();
+        System.out.println(hi5);
+        hi5.addFront(3);
+        System.out.println(hi5);
+
+        // testing add with two positive numbers
+        HugeInteger hi6 = new HugeInteger("9");
+        HugeInteger hi7 = new HugeInteger("6");
+        HugeInteger hi8 = hi6.addPositive(hi7);
+        System.out.println(hi6+" + "+hi7+" = "+hi8);
+        HugeInteger hi9 = new HugeInteger("9996354");
+        HugeInteger hi10 = new HugeInteger("4656");
+        HugeInteger hi11 = hi9.addPositive(hi10);
+        System.out.println(hi9+" + "+hi10+" = "+hi11);
+        System.out.println(hi5.compareTo(hi4));
+        System.out.println(hi2.compareTo(hi1));
 
     }
 }

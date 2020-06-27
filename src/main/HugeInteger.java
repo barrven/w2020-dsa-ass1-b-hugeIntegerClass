@@ -14,6 +14,8 @@ public class HugeInteger {
     }
 
     public HugeInteger(String number){
+        if (number.length() == 0)
+            return;
         if (number.charAt(0) == '-'){
             isPositive = false;
             //provide correct starting index for remove function to work
@@ -23,6 +25,7 @@ public class HugeInteger {
             isPositive = true;
             number = removeLeadingZeros(number, 0);
         }
+        //set the length property after the trimming and sign removal
         length = number.length();
         populate(number);
     }
@@ -39,21 +42,28 @@ public class HugeInteger {
     }
 
     private void populate(String number){
+        //assume the length is either 1 or > 1 because already checked for zero length string
+        //in constructor
         head = new Node(Integer.parseInt(String.valueOf(number.charAt(length-1))));
-        Node n, p, c = head;
-        for (int i = length-2; i > -1; i--){
-            p = c;
-            int data = Integer.parseInt(String.valueOf(number.charAt(i)));
-            if (i == 0){
-                tail = new Node(data);
-                tail.prev = c;
-                p.next = tail;
+        if (length > 1){
+            Node p, c = head;
+            for (int i = length-2; i > -1; i--){
+                p = c;
+                int data = Integer.parseInt(String.valueOf(number.charAt(i)));
+                if (i == 0){ //if i is zero then we are on the last digit so create the tail
+                    tail = new Node(data);
+                    tail.prev = c;
+                    p.next = tail;
+                }
+                else{
+                    c = new Node(data);
+                    c.prev = p;
+                    p.next = c;
+                }
             }
-            else{
-                c = new Node(data);
-                c.prev = p;
-                p.next = c;
-            }
+        }
+        else{
+            tail = head;
         }
     }
 
@@ -74,7 +84,7 @@ public class HugeInteger {
     }
 
     public String toString(){
-        if (head == null)
+        if (length == 0)
             return "0";
         StringBuilder s = new StringBuilder();
         if (!isPositive)
@@ -233,6 +243,7 @@ public class HugeInteger {
         Returns 0 if the number stored is equal to num2
         Returns 1 if the number stored is greater than num2
          */
+        //if both numbers have the same sign and the same number of digits
         if (isPositive == num2.isPositive && length == num2.length){
             //loop through number from left to right and find the difference
             Node list_a = tail;
@@ -244,6 +255,7 @@ public class HugeInteger {
                 list_b = list_b.prev;
             } while (list_a != null && difference == 0);
 
+            //returns 1 if difference is > 0, -1 if < 0, and 0 if 0
             return Integer.compare(difference, 0);
 
         }
