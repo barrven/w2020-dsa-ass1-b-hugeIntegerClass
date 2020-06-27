@@ -150,18 +150,36 @@ public class HugeInteger {
         Adds a digit to the end of the number (at the front of the list).
         Note: if the list is empty leading zeros should not be added.
          */
-        if (length != 0){
-
+        if (digit == 0){
+            if (length > 0){
+                tail = new Node(digit);
+                head.next = tail;
+                tail.prev = head;
+                length++;
+            }
         }
-
-
-
-
-
-
-
-
-
+        else{
+            if (length == 0){
+                head = new Node(digit);
+                tail = head;
+                length++;
+                System.out.println(this.toString());
+                return;
+            }
+            if (length == 1){
+                head = new Node(digit);
+                head.next = tail;
+                tail.prev = head;
+                System.out.println(this.toString());
+                return;
+            }
+            Node temp = head;
+            head = new Node(digit);
+            head.next = temp;
+            temp.prev = head;
+            length++;
+        }
+        System.out.println(this.toString());
 
 
 //        //list is empty
@@ -191,10 +209,10 @@ public class HugeInteger {
         if (length == 0){
             tail = new Node(digit);
             head = tail;
-            length = 1;
+            length++;
             return;
         }
-        //cover case where head == tail and need to create tail
+        //cover case where need to create new node for tail
         if (length == 1){
             tail = new Node(digit);
             head.next = tail;
@@ -206,6 +224,7 @@ public class HugeInteger {
         tail = new Node(digit);
         tail.prev = temp;
         temp.next = tail;
+        length++;
     }
 
     public int compareTo(HugeInteger num2){
@@ -214,6 +233,30 @@ public class HugeInteger {
         Returns 0 if the number stored is equal to num2
         Returns 1 if the number stored is greater than num2
          */
-        return 0;
+        if (isPositive == num2.isPositive && length == num2.length){
+            //loop through number from left to right and find the difference
+            Node list_a = tail;
+            Node list_b = num2.tail;
+            int difference;
+            do {
+                difference = list_a.data - list_b.data;
+                list_a = list_a.prev;
+                list_b = list_b.prev;
+            } while (list_a != null && difference == 0);
+
+            return Integer.compare(difference, 0);
+
+        }
+        else{
+            if (isPositive && !num2.isPositive){
+                return 1;
+            }
+            if (!isPositive && num2.isPositive){
+                return -1;
+            }
+            //returns 1 if length > num2length, 0 if they are the same, and -1 otherwise
+            return Integer.compare(length, num2.length);
+        }
+
     }
 }
